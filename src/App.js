@@ -6,21 +6,28 @@ import TaskHookForm from "./TaskHookForm";
 import PeopleForm from "./PeopleForm";
 import { initialTasks, initialTeam } from "./data";
 
-
 function App() {
   const [tasks, setTasks] = useState(initialTasks);
   const [team, setTeam] = useState(initialTeam);
 
   function handleTaskSubmit(yeniTask) {
-    setTasks([yeniTask, ...tasks])
+    setTasks([yeniTask, ...tasks]);
   }
 
   function handlePeopleSubmit(yeniKisi) {
-    setTeam([...team, yeniKisi])
+    setTeam([...team, yeniKisi]);
   }
 
   function handleComplete(id) {
-    console.log("tamamlama fonksiyonunu buraya yazın")
+    const newTasks = tasks.map((t) => {
+      if (t.id === id) {
+        return { ...t, status: "yapıldı" };
+      } else {
+        return t;
+      }
+    });
+    console.log("handleComplete çalıştı", id);
+    setTasks(newTasks);
   }
 
   return (
@@ -59,7 +66,6 @@ function App() {
           </div>
         </div>
       </div>
-
     </div>
   );
 }
